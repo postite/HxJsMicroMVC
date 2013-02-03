@@ -10,6 +10,8 @@ VERY SIMPLE PROTOTYPE/PROOF OF CONCEPT!
 Don't expect anything solid or secure here!
 (Actully, don't expect MVC! It's more of a MVP concept, I guess.)
 
+<img src="https://raw.github.com/cambiata/HxJsMicroMVC/master/screen.png" />	
+
 This is a simple attempt to solve the organization of client side js/jquery-stuff.
 Most of the inspiration comes out of the use of **AngularJS**, with its concept of
 controllers for handling stuff. (But don't expect any binding mechanism here!)
