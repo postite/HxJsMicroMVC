@@ -83,6 +83,10 @@ In the above example, the metadata @id triggers an attempt to setup the followin
 
 No rocket science, but quite handy.
 
+Views:
+------
+
+Just like in AngularJS, the MVC "views" is represented by plain html. No less, no more.
 
 Setup:
 ------
