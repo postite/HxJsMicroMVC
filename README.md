@@ -66,7 +66,8 @@ The following controller is invoked when the current page uri is '/contacts:
 If they extend the JQureyController, they are able to automatically invoke JQuery 
 objects based on metadata @id and the variable name.
 
-	@uri('/(test)');
+
+    @uri('/(test)');
 	class TestController extends JQureyController {	
 		@id private var button1:JQuery; 
 		public function new() {
@@ -84,6 +85,11 @@ No rocket science, but quite handy.
 Setup:
 ------
 
-The js project is compiled into 'bin/micromvc-client.js', and this file is
+The FlashDevelop projects are setup to work right out of the box on a Apache setup with the domain name "micromvc" (http://micromvc).
+Have a look at bin/apache-vhost-setup.txt.
+Please also note that .htaccess is used for pretty urls.
+	
+
+The HxJsMicroMvc-Client project is compiled into 'bin/micromvc-client.js', and this file is
 linked into the html page:
 <script src="/micromvc-client.js"></script>	
