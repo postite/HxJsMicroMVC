@@ -24,20 +24,20 @@ invokes them based on the current uri and parameters.
 This is an example of a Main class an an HxJsMicroMVC application.
 The context is set up with an array of the application controllers.
 
-class ClientMain 
-{	
-    public function new() {
-		var context = new JSContext([
-            ContactController,
-            HomeController, // Home/Index controller (uri '/') should be added last
-        ]);		
-        context.getController(context.getURI());
-    }
+    class ClientMain 
+    {	
+        public function new() {
+    	    var context = new JSContext([
+                ContactController,
+                HomeController, // Home/Index controller (uri '/') should be added last
+            ]);		
+            context.getController(context.getURI());
+        }
 	
-    static function main() 	{		
-        new ClientMain();
-    }	
-}
+        static function main() 	{		
+            new ClientMain();
+        }	
+    }
 
 Controllers:
 ------------
