@@ -72,11 +72,21 @@ var EventsController = $hxClasses["EventsController"] = function() {
 	this.inputTest.keyup(function(e) {
 		_g.labelUppercase.html(_g.inputTest.val().toUpperCase());
 	});
+	this.btnAjax.click(function(e) {
+		var r = new haxe.Http("/pages/ajax.html");
+		r.onError = js.Lib.alert;
+		r.onData = function(r1) {
+			_g.divAjax.html(r1);
+		};
+		r.request(false);
+	});
 };
 EventsController.__name__ = ["EventsController"];
 EventsController.__super__ = cx.micromvc.client.JQueryController;
 EventsController.prototype = $extend(cx.micromvc.client.JQueryController.prototype,{
-	labelUppercase: null
+	divAjax: null
+	,btnAjax: null
+	,labelUppercase: null
 	,inputTest: null
 	,btnTest: null
 	,__class__: EventsController
@@ -1037,6 +1047,108 @@ cx.micromvc.client.JSContext.prototype = {
 	,__class__: cx.micromvc.client.JSContext
 }
 var haxe = haxe || {}
+haxe.Http = $hxClasses["haxe.Http"] = function(url) {
+	this.url = url;
+	this.headers = new Hash();
+	this.params = new Hash();
+	this.async = true;
+};
+haxe.Http.__name__ = ["haxe","Http"];
+haxe.Http.requestUrl = function(url) {
+	var h = new haxe.Http(url);
+	h.async = false;
+	var r = null;
+	h.onData = function(d) {
+		r = d;
+	};
+	h.onError = function(e) {
+		throw e;
+	};
+	h.request(false);
+	return r;
+}
+haxe.Http.prototype = {
+	onStatus: function(status) {
+	}
+	,onError: function(msg) {
+	}
+	,onData: function(data) {
+	}
+	,request: function(post) {
+		var me = this;
+		var r = new js.XMLHttpRequest();
+		var onreadystatechange = function() {
+			if(r.readyState != 4) return;
+			var s = (function($this) {
+				var $r;
+				try {
+					$r = r.status;
+				} catch( e ) {
+					$r = null;
+				}
+				return $r;
+			}(this));
+			if(s == undefined) s = null;
+			if(s != null) me.onStatus(s);
+			if(s != null && s >= 200 && s < 400) me.onData(r.responseText); else switch(s) {
+			case null: case undefined:
+				me.onError("Failed to connect or resolve host");
+				break;
+			case 12029:
+				me.onError("Failed to connect to host");
+				break;
+			case 12007:
+				me.onError("Unknown host");
+				break;
+			default:
+				me.onError("Http Error #" + r.status);
+			}
+		};
+		if(this.async) r.onreadystatechange = onreadystatechange;
+		var uri = this.postData;
+		if(uri != null) post = true; else {
+			var $it0 = this.params.keys();
+			while( $it0.hasNext() ) {
+				var p = $it0.next();
+				if(uri == null) uri = ""; else uri += "&";
+				uri += StringTools.urlEncode(p) + "=" + StringTools.urlEncode(this.params.get(p));
+			}
+		}
+		try {
+			if(post) r.open("POST",this.url,this.async); else if(uri != null) {
+				var question = this.url.split("?").length <= 1;
+				r.open("GET",this.url + (question?"?":"&") + uri,this.async);
+				uri = null;
+			} else r.open("GET",this.url,this.async);
+		} catch( e ) {
+			this.onError(e.toString());
+			return;
+		}
+		if(this.headers.get("Content-Type") == null && post && this.postData == null) r.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		var $it1 = this.headers.keys();
+		while( $it1.hasNext() ) {
+			var h = $it1.next();
+			r.setRequestHeader(h,this.headers.get(h));
+		}
+		r.send(uri);
+		if(!this.async) onreadystatechange();
+	}
+	,setPostData: function(data) {
+		this.postData = data;
+	}
+	,setParameter: function(param,value) {
+		this.params.set(param,value);
+	}
+	,setHeader: function(header,value) {
+		this.headers.set(header,value);
+	}
+	,params: null
+	,headers: null
+	,postData: null
+	,async: null
+	,url: null
+	,__class__: haxe.Http
+}
 if(!haxe.rtti) haxe.rtti = {}
 haxe.rtti.Meta = $hxClasses["haxe.rtti.Meta"] = function() { }
 haxe.rtti.Meta.__name__ = ["haxe","rtti","Meta"];
@@ -1263,8 +1375,23 @@ if(typeof window != "undefined") {
 		return f(msg,[url + ":" + line]);
 	};
 }
+js.XMLHttpRequest = window.XMLHttpRequest?XMLHttpRequest:window.ActiveXObject?function() {
+	try {
+		return new ActiveXObject("Msxml2.XMLHTTP");
+	} catch( e ) {
+		try {
+			return new ActiveXObject("Microsoft.XMLHTTP");
+		} catch( e1 ) {
+			throw "Unable to create XMLHttpRequest object.";
+		}
+	}
+}:(function($this) {
+	var $r;
+	throw "Unable to create XMLHttpRequest object.";
+	return $r;
+}(this));
 ContactController.__meta__ = { obj : { uri : ["/(contact)/"]}};
-EventsController.__meta__ = { obj : { uri : ["/(events)/"]}, fields : { labelUppercase : { id : null}, inputTest : { id : null}, btnTest : { id : null}}};
+EventsController.__meta__ = { obj : { uri : ["/(events)/"]}, fields : { divAjax : { id : null}, btnAjax : { id : null}, labelUppercase : { id : null}, inputTest : { id : null}, btnTest : { id : null}}};
 ParametersController.__meta__ = { obj : { uri : ["/(param)/([0-9]+)/([a-z]+)/"]}, fields : { labelHash : { id : null}, labelPar2 : { id : null}, labelPar1 : { id : null}}};
 js.Lib.onerror = null;
 ClientMain.main();

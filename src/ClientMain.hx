@@ -112,6 +112,9 @@ class EventsController extends JQueryController {
 	@id private var inputTest:JQuery;			// shorthand for new JQuery('#inputTest')
 	@id private var labelUppercase:JQuery;		// shorthand for new JQuery('#labelUppercase')
 	
+	@id private var btnAjax:JQuery;				
+	@id private var divAjax:JQuery;				
+	
 	public function new() {		
 		super();
 		trace('new EventsController');
@@ -122,6 +125,13 @@ class EventsController extends JQueryController {
 		
 		inputTest.keyup(function(e) {			
 			this.labelUppercase.html(inputTest.val().toUpperCase());
+		});
+		
+		btnAjax.click(function(e) {			
+			var r = new haxe.Http('/pages/ajax.html');
+			r.onError = js.Lib.alert;
+			r.onData = function(r) { divAjax.html(r); }
+			r.request(false);			
 		});
 	}
 }	
