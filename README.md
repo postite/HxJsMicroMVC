@@ -11,7 +11,7 @@ Don't expect anything solid or secure here!
 (Actully, don't expect MVC! It's more of a MVP concept, I guess.)
 
 This is a simple attempt to solve the organization of client side js/jquery-stuff.
-Most of the inspiration comes out of the use of AngularJS, with its concept of
+Most of the inspiration comes out of the use of **AngularJS**, with its concept of
 controllers for handling stuff. (But don't expect any binding mechanism here!)
 
 It's based around the concept with two basic parts, context and controllers:
@@ -45,7 +45,7 @@ Controllers:
 The controllers have two things worth notice:
 	
 They are bound to uris via @uri metadata in regexp form. 
-The following controller is invoked when the current page is the index page ('/'):
+The following controller is invoked when the current page is the index page **'/'**:
 
 	@uri('/')   // <-- This metadata for index controller can be left out
 	class HomeController implements IJSController {	
@@ -54,7 +54,7 @@ The following controller is invoked when the current page is the index page ('/'
 		}		
 	}
 
-The following controller is invoked when the current page uri is '/contacts:
+The following controller is invoked when the current page uri is **'/contacts'**:
 	
 	@uri('/contacts')   // or @uri('/(contacts)')
 	class ContactsController implements IJSController {	
@@ -86,10 +86,8 @@ Setup:
 ------
 
 The FlashDevelop projects are setup to work right out of the box on a Apache setup with the domain name "micromvc" (http://micromvc).
-Have a look at bin/apache-vhost-setup.txt.
-Please also note that .htaccess is used for pretty urls.
-	
+Have a look at **bin/apache-vhost-setup.txt**.
+Please also note that **.htaccess** is used for pretty urls.
 
-The HxJsMicroMvc-Client project is compiled into 'bin/micromvc-client.js', and this file is
-linked into the html page:
-<script src="/micromvc-client.js"></script>	
+The HxJsMicroMvc-Client project is compiled into 'bin/micromvc-client.js', and this file islinked into the html page.
+
