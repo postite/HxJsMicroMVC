@@ -51,11 +51,16 @@ cx.micromvc.client.JQueryController = $hxClasses["cx.micromvc.client.JQueryContr
 		var jq = new js.JQuery("#" + field);
 		if(jq.length > 0) this[field] = jq; else console.log("Cant find dom element #" + field);
 	}
+	new js.JQuery(js.Lib.window).bind("hashchange",$bind(this,this.onHashChange));
+	this.onHashChange(null);
 };
 cx.micromvc.client.JQueryController.__name__ = ["cx","micromvc","client","JQueryController"];
 cx.micromvc.client.JQueryController.__interfaces__ = [cx.micromvc.client.IJSController];
 cx.micromvc.client.JQueryController.prototype = {
-	__class__: cx.micromvc.client.JQueryController
+	onHashChange: function(e) {
+		console.log("JQueryController.onHashChange() : " + js.Lib.window.location.hash);
+	}
+	,__class__: cx.micromvc.client.JQueryController
 }
 var EventsController = $hxClasses["EventsController"] = function() {
 	var _g = this;
@@ -76,17 +81,21 @@ EventsController.prototype = $extend(cx.micromvc.client.JQueryController.prototy
 	,btnTest: null
 	,__class__: EventsController
 });
-var ParametersController = $hxClasses["ParametersController"] = function(numbers_,letters_) {
+var ParametersController = $hxClasses["ParametersController"] = function(numbers,letters) {
 	cx.micromvc.client.JQueryController.call(this);
-	console.log("new ParametersController " + numbers_ + " " + letters_);
-	this.numbers.html(numbers_);
-	this.letters.html(letters_);
+	console.log("new ParametersController " + numbers + " " + letters);
+	this.labelPar1.html(numbers);
+	this.labelPar2.html(letters);
 };
 ParametersController.__name__ = ["ParametersController"];
 ParametersController.__super__ = cx.micromvc.client.JQueryController;
 ParametersController.prototype = $extend(cx.micromvc.client.JQueryController.prototype,{
-	letters: null
-	,numbers: null
+	onHashChange: function(e) {
+		this.labelHash.html(js.Lib.window.location.hash);
+	}
+	,labelHash: null
+	,labelPar2: null
+	,labelPar1: null
 	,__class__: ParametersController
 });
 var EReg = $hxClasses["EReg"] = function(r,opt) {
@@ -986,8 +995,10 @@ cx.micromvc.client.JSContext.getMatchedArray = function(r) {
 cx.micromvc.client.JSContext.prototype = {
 	getURI: function() {
 		var uri = js.Lib.window.location.href;
-		var segments = uri.split(js.Lib.window.location.host);
-		return segments[1];
+		uri = uri.split(js.Lib.window.location.host)[1];
+		uri = uri.indexOf("#") > 0?HxOverrides.substr(uri,0,uri.indexOf("#")):uri;
+		console.log(uri);
+		return uri;
 	}
 	,getController: function(uri) {
 		uri = cx.PathTools.addSlash(uri);
@@ -1254,6 +1265,6 @@ if(typeof window != "undefined") {
 }
 ContactController.__meta__ = { obj : { uri : ["/(contact)/"]}};
 EventsController.__meta__ = { obj : { uri : ["/(events)/"]}, fields : { labelUppercase : { id : null}, inputTest : { id : null}, btnTest : { id : null}}};
-ParametersController.__meta__ = { obj : { uri : ["/(param)/([0-9]+)/([a-z]+)/"]}, fields : { letters : { id : null}, numbers : { id : null}}};
+ParametersController.__meta__ = { obj : { uri : ["/(param)/([0-9]+)/([a-z]+)/"]}, fields : { labelHash : { id : null}, labelPar2 : { id : null}, labelPar1 : { id : null}}};
 js.Lib.onerror = null;
 ClientMain.main();

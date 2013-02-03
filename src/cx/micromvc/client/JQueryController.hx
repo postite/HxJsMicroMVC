@@ -1,5 +1,6 @@
 package cx.micromvc.client;
 import js.JQuery;
+import js.Lib;
 
 /**
  * ...
@@ -20,7 +21,14 @@ class JQueryController implements IJSController
 			} else {
 				trace('Cant find dom element #' + field);
 			}
-		}			
+		}	
+		
+		new JQuery(Lib.window).bind('hashchange', this.onHashChange);	
+		this.onHashChange(null);
+	}
+	
+	private function onHashChange(e=null) {
+		trace('JQueryController.onHashChange() : ' + Lib.window.location.hash);
 	}
 	
 }

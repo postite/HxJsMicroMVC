@@ -134,14 +134,19 @@ class EventsController extends JQueryController {
 @uri('/(param)/([0-9]+)/([a-z]+)/')
 class ParametersController extends JQueryController {
 	
-	@id public var numbers:JQuery;				// shorthand for new JQuery('#numbers')
-	@id public var letters:JQuery;				// shorthand for new JQuery('#letters')
+	@id public var labelPar1:JQuery;				// shorthand for new JQuery('#labelPar1')
+	@id public var labelPar2:JQuery;				// shorthand for new JQuery('#labelPar2')
+	@id public var labelHash:JQuery;				// shorthand for new JQuery('#labelHash')
 	
-	public function new(numbers_:String, letters_:String) {
+	public function new(numbers:String, letters:String) {
 		super();
-		trace('new ParametersController ' + numbers_ + ' ' + letters_);
-		this.numbers.html(numbers_);
-		this.letters.html(letters_);
+		trace('new ParametersController ' + numbers + ' ' + letters);
+		this.labelPar1.html(numbers);
+		this.labelPar2.html(letters);
+	}
+	
+	override private function onHashChange(e=null) {
+		this.labelHash.html(Lib.window.location.hash);
 	}
 }
 

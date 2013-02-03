@@ -56,8 +56,10 @@ class JSContext {
 	
 	public function getURI():String {
 		var uri = Lib.window.location.href;
-		var segments = uri.split(Lib.window.location.host);
-		return segments[1];
+		uri = uri.split(Lib.window.location.host)[1];		
+		uri = (uri.indexOf('#') > 0) ? uri.substr(0, uri.indexOf('#')) : uri;
+		trace(uri);
+		return uri;
 	}
 	
 	static public function getMatchedArray(r:EReg):Array<Dynamic> {
