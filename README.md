@@ -30,8 +30,8 @@ The context is set up with an array of the application controllers.
     {	
         public function new() {
     	    var context = new JSContext([
-                ContactController,
-                HomeController, // Home/Index controller (uri '/') should be added last
+                ContactController,   <--- Controllers are added here
+                HomeController,      <--- Index controller (uri '/') should be added last
             ]);		
             context.getController(context.getURI());
         }
