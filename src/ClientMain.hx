@@ -66,11 +66,8 @@ class ClientMain
 			EventsController, 
 			ContactController, 
 			HomeController,
-			]);
-			
-		// If a controller is found, it's invoked here:				
-		var controller = context.getController(context.getURI());
-		trace(controller);
+		]);
+
 	}
 }
 

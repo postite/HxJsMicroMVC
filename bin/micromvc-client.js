@@ -6,8 +6,6 @@ function $extend(from, fields) {
 }
 var ClientMain = $hxClasses["ClientMain"] = function() {
 	var context = new cx.micromvc.client.JSContext([ParametersController,EventsController,ContactController,HomeController]);
-	var controller = context.getController(context.getURI());
-	console.log(controller);
 };
 ClientMain.__name__ = ["ClientMain"];
 ClientMain.main = function() {
@@ -930,13 +928,6 @@ Type.allEnums = function(e) {
 	}
 	return all;
 }
-cx.PathTools = $hxClasses["cx.PathTools"] = function() { }
-cx.PathTools.__name__ = ["cx","PathTools"];
-cx.PathTools.addSlash = function(path,slash) {
-	if(slash == null) slash = "/";
-	if(!StringTools.endsWith(path,slash)) path += slash;
-	return path;
-}
 cx.ReflectTools = $hxClasses["cx.ReflectTools"] = function() { }
 cx.ReflectTools.__name__ = ["cx","ReflectTools"];
 cx.ReflectTools.getMethods = function(object) {
@@ -986,6 +977,7 @@ cx.micromvc.client.JSContext = $hxClasses["cx.micromvc.client.JSContext"] = func
 		++_g;
 		this.registerConroller(cntrl);
 	}
+	var controller = this.getController(this.getURI());
 };
 cx.micromvc.client.JSContext.__name__ = ["cx","micromvc","client","JSContext"];
 cx.micromvc.client.JSContext.getMatchedArray = function(r) {
@@ -1002,6 +994,11 @@ cx.micromvc.client.JSContext.getMatchedArray = function(r) {
 	}
 	return a;
 }
+cx.micromvc.client.JSContext.addSlash = function(path,slash) {
+	if(slash == null) slash = "/";
+	path = StringTools.endsWith(path,"/")?path:path + "/";
+	return path;
+}
 cx.micromvc.client.JSContext.prototype = {
 	getURI: function() {
 		var uri = js.Lib.window.location.href;
@@ -1011,7 +1008,7 @@ cx.micromvc.client.JSContext.prototype = {
 		return uri;
 	}
 	,getController: function(uri) {
-		uri = cx.PathTools.addSlash(uri);
+		uri = cx.micromvc.client.JSContext.addSlash(uri);
 		console.log(uri);
 		var _g = 0, _g1 = this.keys;
 		while(_g < _g1.length) {

@@ -28,12 +28,12 @@ The context is set up with an array of the application controllers.
 
     class Main 
     {	
+		
         public function new() {
     	    var context = new JSContext([
                 ContactController,   <--- Controllers are added here
                 HomeController,      <--- Index controller (uri '/') should be added last
-            ]);		
-            context.getController(context.getURI());
+            ]);		           
         }
 	
         static function main() 	{		

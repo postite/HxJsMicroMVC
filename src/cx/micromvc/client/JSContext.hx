@@ -16,6 +16,10 @@ class JSContext {
 		for (cntrl in registerControllers) {
 			registerConroller(cntrl);
 		}		
+		
+		// invoke controller:
+		var controller = getController(getURI());
+		
 	}
 	private var controllers:Hash<String> ;
 	private var keys:Array<String>;
@@ -33,7 +37,7 @@ class JSContext {
 	
 	public function getController(uri:String):IJSController {		
 		
-		uri = PathTools.addSlash(uri);
+		uri = addSlash(uri);
 		trace(uri);
 		for (key in keys) {
 			var r = new EReg(key, '');
@@ -76,6 +80,10 @@ class JSContext {
 		return a;
 	}
 	
+	static private function addSlash(path:String, slash = '/') {		
+		path = (path.endsWith('/')) ? path : path + '/';
+		return path;
+	}
 	
 	
 }
