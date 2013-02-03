@@ -43,8 +43,8 @@ Controllers:
 ------------
 
 The controllers have two things worth notice:
-1. They are bound to uris via @uri metadata in regexp form. 
-
+	
+They are bound to uris via @uri metadata in regexp form. 
 The following controller is invoked when the current page is the index page ('/'):
 
 	@uri('/')   // <-- This metadata for index controller can be left out
@@ -63,7 +63,7 @@ The following controller is invoked when the current page uri is '/contacts:
 		}		
 	}
 
-2. If they extend the JQureyController, they are able to automatically invoke JQuery 
+If they extend the JQureyController, they are able to automatically invoke JQuery 
 objects based on metadata @id and the variable name.
 
 	@uri('/(test)');
