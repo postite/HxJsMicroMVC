@@ -47,8 +47,7 @@ The controllers have two things worth notice:
 
 The following controller is invoked when the current page is the index page ('/'):
 
-@uri('/')   // <-- This metadata for index controller can be left out
-
+    @uri('/')   // <-- This metadata for index controller can be left out
     class HomeController implements IJSController {	
 	public function new() {
 		trace('new HomeController');
