@@ -26,17 +26,17 @@ The context is set up with an array of the application controllers.
 
 class ClientMain 
 {	
-	public function new() {
+    public function new() {
 		var context = new JSContext([
-			ContactController,
-			HomeController, // Home/Index controller (uri '/') should be added last
-		]);		
-		context.getController(context.getURI());
-	}
+            ContactController,
+            HomeController, // Home/Index controller (uri '/') should be added last
+        ]);		
+        context.getController(context.getURI());
+    }
 	
-	static function main() 	{		
-		new ClientMain();
-	}	
+    static function main() 	{		
+        new ClientMain();
+    }	
 }
 
 Controllers:
@@ -49,17 +49,17 @@ The following controller is invoked when the current page is the index page ('/'
 
 @uri('/')   // <-- This metadata for index controller can be left out
 class HomeController implements IJSController {	
-	public function new() {
-		trace('new HomeController');
-	}		
+    public function new() {
+        trace('new HomeController');
+    }		
 }
 
 The following controller is invoked when the current page uri is '/contacts:
 @uri('/contacts')   // or @uri('/(contacts)')
 class ContactsController implements IJSController {	
-	public function new() {
-		trace('new ContactsController');
-	}		
+    public function new() {
+        trace('new ContactsController');
+    }		
 }
 
 2. If they extend the JQureyController, they are able to automatically invoke JQuery 
@@ -67,15 +67,15 @@ objects based on metadata @id and the variable name.
 
 @uri('/(test)');
 class TestController extends JQureyController {	
-	@id private var button1:JQuery; 
-	public function new() {
-		trace('new TestController');
-	}	
+    @id private var button1:JQuery; 
+    public function new() {
+        trace('new TestController');
+    }	
 }
 
 In the above example, the metadata @id triggers an attempt to setup the following behind the scenes:
 
-	this.button1 = JQuery('#button1');
+    this.button1 = JQuery('#button1');
 
 No rocket science, but quite handy.
 
