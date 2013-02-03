@@ -1,15 +1,43 @@
-<h2>JQuery events</h2>
-<p>
-	<button class="btn" id="btnTest">This is btnTest. Press me!</button>
-</p>
-<hr/>
-<p>
-	<input id="inputTest" type="text" placeholder="Write something here!"></input>
-	<br />
-	Uppercase version: <b><span id="labelUppercase">XYZ</span></b>
-</p>
-<hr/>
-<p>
-	<button class="btn" id="btnAjax">This is btnAjax. Load below!</button>
-</p>
+<div class="row">
+	<div class="span4">
+		<h2>Events</h2>
+		<p>
+			<button class="btn" id="btnTest">This is btnTest. Press me!</button>
+		</p>
+		<hr/>
+		<p>
+			<input id="inputTest" type="text" placeholder="Write something here!"></input>
+			<br />
+			Uppercase version: <b><span id="labelUppercase">XYZ</span></b>
+		</p>
+		<hr/>
+		<p>
+			<button class="btn" id="btnAjax">This is btnAjax. Load below!</button>
+		</p>
+
+	</div>
+
+	<div class="span8">
+		<h2>JQuery events and Ajax</h2>
+		<p>The EventsController extends JQueryController. This arms it with the ability to invoke JQuery objects from properties marked with @id metatag.
+		
+		<pre>
+	@uri('/(events)/') 
+	class EventsController extends JQueryController {	
+		// Below: shorthand for 
+		// private var btnTest = new JQuery('#btnTest');
+		@id private var btnTest:JQuery;	
+		...</pre>
+		<p>This also makes it possible to bind handlers to events:</p>
+		<pre>
+	public function new() {		
+		super(); // <--- Must call parent constructor
+		btnTest.click(function(e) {
+			Lib.alert('btnTest is clicked!');
+		});
+		...</pre>
+		
+	</div>
+</div>
+
 <div id="divAjax">This text should be replaced...</div>

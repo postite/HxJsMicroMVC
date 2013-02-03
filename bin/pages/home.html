@@ -1,1 +1,12 @@
 <h2>Home page</h2>
+<p>Nothing fancy happens here.</p>
+<p>There *is* a HomeController bound to @uri('/'), but it does nothing.<br/>
+It's just here because of demonstration reasons.</p>
+<pre>
+@uri('/')  // <-- not needed for index page = '/'
+class HomeController implements IJSController {	
+	public function new() {
+		trace('new HomeController');
+	}		
+}
+</pre>

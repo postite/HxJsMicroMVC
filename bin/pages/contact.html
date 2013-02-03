@@ -1,1 +1,10 @@
 <h2>Contact page</h2>
+<p>The ContactController is bound to the @uri('/(contact)'), but does nothing but kicks of an greeting alert in its constructor.</p>
+<pre>
+@uri('/(contact)/')
+class ContactController implements IJSController {
+	public function new() {
+		Lib.alert('The ContactController says Hello world!');
+	}
+}	
+</pre>

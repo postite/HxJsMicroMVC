@@ -116,7 +116,7 @@ class EventsController extends JQueryController {
 	@id private var divAjax:JQuery;				
 	
 	public function new() {		
-		super();
+		super(); 								// <--- Musit call parent constructor
 		trace('new EventsController');
 		
 		btnTest.click(function(e) {
