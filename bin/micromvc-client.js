@@ -42,11 +42,12 @@ ContactController.prototype = {
 cx.micromvc.client.JQueryController = $hxClasses["cx.micromvc.client.JQueryController"] = function() {
 	var metaFields = haxe.rtti.Meta.getFields(cx.ReflectTools.getClass(this));
 	var fields = cx.ReflectTools.getObjectFields(metaFields);
+	var jq = null;
 	var _g = 0;
 	while(_g < fields.length) {
 		var field = fields[_g];
 		++_g;
-		var jq = new js.JQuery("#" + field);
+		if(Reflect.hasField(Reflect.field(metaFields,field),"classe")) jq = new js.JQuery("." + field); else jq = new js.JQuery("#" + field);
 		if(jq.length > 0) this[field] = jq; else console.log("Cant find dom element #" + field);
 	}
 	new js.JQuery(js.Lib.window).bind("hashchange",$bind(this,this.onHashChange));
@@ -65,7 +66,8 @@ var EventsController = $hxClasses["EventsController"] = function() {
 	cx.micromvc.client.JQueryController.call(this);
 	console.log("new EventsController");
 	this.btnTest.click(function(e) {
-		js.Lib.alert("Aah! Feels sooo good!");
+		js.Lib.alert("Aah! Feels s good!");
+		$(this).text("pop");
 	});
 	this.inputTest.keyup(function(e) {
 		_g.labelUppercase.html(_g.inputTest.val().toUpperCase());
@@ -1388,7 +1390,9 @@ js.XMLHttpRequest = window.XMLHttpRequest?XMLHttpRequest:window.ActiveXObject?fu
 	return $r;
 }(this));
 ContactController.__meta__ = { obj : { uri : ["/(contact)/"]}};
-EventsController.__meta__ = { obj : { uri : ["/(events)/"]}, fields : { divAjax : { id : null}, btnAjax : { id : null}, labelUppercase : { id : null}, inputTest : { id : null}, btnTest : { id : null}}};
+EventsController.__meta__ = { obj : { uri : ["/(events)/"]}, fields : { divAjax : { classe : null}, btnAjax : { id : null}, labelUppercase : { id : null}, inputTest : { id : null}, btnTest : { id : null}}};
 ParametersController.__meta__ = { obj : { uri : ["/(param)/([0-9]+)/([a-z]+)/"]}, fields : { labelHash : { id : null}, labelPar2 : { id : null}, labelPar1 : { id : null}}};
 js.Lib.onerror = null;
 ClientMain.main();
+
+//@ sourceMappingURL=micromvc-client.js.map

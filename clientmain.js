@@ -65,7 +65,8 @@ var EventsController = $hxClasses["EventsController"] = function() {
 	cx.micromvc.client.JQueryController.call(this);
 	console.log("new EventsController");
 	this.btnTest.click(function(e) {
-		js.Lib.alert("Aah! Feels sooo good!");
+		js.Lib.alert("Aah! Feels s good!");
+		_g.btnTest.css("margin-left","200px");
 	});
 	this.inputTest.keyup(function(e) {
 		_g.labelUppercase.html(_g.inputTest.val().toUpperCase());
@@ -1392,3 +1393,5 @@ EventsController.__meta__ = { obj : { uri : ["/(events)/"]}, fields : { divAjax 
 ParametersController.__meta__ = { obj : { uri : ["/(param)/([0-9]+)/([a-z]+)/"]}, fields : { labelHash : { id : null}, labelPar2 : { id : null}, labelPar1 : { id : null}}};
 js.Lib.onerror = null;
 ClientMain.main();
+
+//@ sourceMappingURL=clientmain.js.map

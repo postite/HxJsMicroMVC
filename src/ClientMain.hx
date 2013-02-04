@@ -110,14 +110,15 @@ class EventsController extends JQueryController {
 	@id private var labelUppercase:JQuery;		// shorthand for new JQuery('#labelUppercase')
 	
 	@id private var btnAjax:JQuery;				
-	@id private var divAjax:JQuery;				
+	@classe private var divAjax:JQuery;				
 	
 	public function new() {		
 		super(); 								// <--- Musit call parent constructor
 		trace('new EventsController');
 		
 		btnTest.click(function(e) {
-			Lib.alert('Aah! Feels sooo good!');
+			Lib.alert('Aah! Feels s good!');
+			JQuery.cur.text("pop");
 		});
 		
 		inputTest.keyup(function(e) {			

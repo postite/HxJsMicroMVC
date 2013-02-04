@@ -3,8 +3,8 @@
 # ClientMain (js:clientmain.js)
 -main ClientMain
 -cp src
--js clientmain.js
-
+-js bin/micromvc-client.js
+-debug
 --next
 
 -main ServerMain
